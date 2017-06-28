@@ -1,6 +1,6 @@
 // ---------------------------------------------------------------------------
 
-#include <ESP8266WiFi.h>
+#include <ESP8266WiFi.h>  
 #include <Nextion.h>
 #include <LinkedList.h>
 #include <NextionPage.h>
@@ -42,10 +42,10 @@ bool objectDetected = false;
 
 
 void configModeCallback (WiFiManager *myWiFiManager) {
-  //Serial.println("Entered config mode");
-  //Serial.println(WiFi.softAPIP());
+  Serial.println("Entered config mode");
+  Serial.println(WiFi.softAPIP());
   //if you used auto generated SSID, print it
-  //Serial.println(myWiFiManager->getConfigPortalSSID());
+  Serial.println(myWiFiManager->getConfigPortalSSID());
 }
 
 ESP8266WebServer server ( 80 );
@@ -83,7 +83,7 @@ void enableMQTT() {
 
 
 void handleRoot() {
-  server.send ( 200, "text/plain", "Nanomesher HMI wirelesss display" );
+  server.send ( 200, "text/plain", "Nanomesher Wireless HMI" );
 }
 
 void ledon(){
@@ -439,20 +439,11 @@ void getStatus(){
 
   
 void setup() {
-  //Serial.begin(9600); 
-  if (! sht31.begin(0x44)) {   // Set to 0x45 for alternate i2c addr
-    Serial.println("Couldn't find SHT31");
-    while (1) delay(1);
-  }
-
- 
   
+
   WiFiManager wifiManager;
   
   wifiManager.setAPCallback(configModeCallback);
-
-  
-
   if(!wifiManager.autoConnect("NanomesherHMI")) {
     //Serial.println("failed to connect and hit timeout");
     //reset and try again, or maybe put it to deep sleep
@@ -547,7 +538,7 @@ void loop() {
 
         if (buffer[4] == 0xFF && buffer[5] == 0xFF && buffer[6] == 0xFF)
         {
-          mymqttpublisher.publish(buffer[3]);
+          mymqttpublisher.publish(buffer[2]);
          
           /*
           ITouchableListItem *item = m_touchableList;
