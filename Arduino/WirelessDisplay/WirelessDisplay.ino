@@ -2,7 +2,6 @@
 
 #include <ESP8266WiFi.h>  
 #include <Nextion.h>
-#include <LinkedList.h>
 #include <NextionPage.h>
 #include <NextionText.h>
 #include <NextionButton.h>
