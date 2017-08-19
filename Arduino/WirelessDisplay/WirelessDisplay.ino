@@ -33,7 +33,9 @@ Adafruit_SHT31 sht31 = Adafruit_SHT31();
 WiFiClient myclient;
 String eventtopic = "user/" +  String(ESP.getChipId(),HEX) + "/event";
  
-Adafruit_MQTT_Client mymqtt = Adafruit_MQTT_Client(&myclient, "", 1883, "", "");
+#define MQTT_SERVER      "io.adafruit.com"
+
+Adafruit_MQTT_Client mymqtt = Adafruit_MQTT_Client(&myclient, MQTT_SERVER, 1883, "", "");
 Adafruit_MQTT_Publish mymqttpublisher = Adafruit_MQTT_Publish(&mymqtt,  eventtopic.c_str());
 
 
